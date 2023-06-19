@@ -4,6 +4,7 @@ name: Scrum assignee
 env:
     NOTION_KEY: ${{ secrets.NOTION_KEY }}
     NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+    SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
 on:
   workflow_dispatch:
     branches:
