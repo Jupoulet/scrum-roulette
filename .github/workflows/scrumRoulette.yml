@@ -1,0 +1,23 @@
+
+
+name: Scrum assignee
+env:
+    NOTION_KEY: ${{ secrets.NOTION_KEY }}
+    NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+on:
+  workflow_dispatch:
+    branches:
+      - main
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  Send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: npm install
+      - run: npm start
