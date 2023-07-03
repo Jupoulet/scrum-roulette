@@ -4,6 +4,12 @@ export type TitleObject = {
   title: Array<{ plain_text: string }>
 }
 
+export type RichTextObject = {
+  id: string,
+  type: 'rich_text',
+  rich_text: Array<{ plain_text: string }>
+}
+
 export type NumberObject = {
   type: "number";
   number: number | null;
@@ -33,7 +39,7 @@ export type FormulaObject = {
   } 
 }
 
-export type PropertyType = DateObject | FormulaObject | NumberObject | TitleObject | SelectObject<any>;
+export type PropertyType = DateObject | FormulaObject | NumberObject | TitleObject | SelectObject<any> | RichTextObject;
 
 export type DBResult  = Array<{
   id: string;

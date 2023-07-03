@@ -24,7 +24,7 @@ const mainScript = async () => {
   console.log(`👑 The chosen one for today is: ${pickRandomMember.name}`);
   await patchMember(squadMembers.results.find((member) => member.id === pickRandomMember.id), 'already-assigned');
   if (pickRandomMember) {
-    await postSlackMessage(`👑 Assigned for today is ${pickRandomMember.name} !`);
+    await postSlackMessage(`👑 Assigned for today is <@${pickRandomMember.slackId}> !`);
   }
 }
 
