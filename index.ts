@@ -11,6 +11,12 @@ const mainScript = async () => {
   console.log('✅ Done !')
   const mappedSquadMembers = getListOfMembersFromDBResponse(squadMembers.results as DBResult);
   const membersPresent = mappedSquadMembers.filter((member) => member.include === 'yes');
+
+  if (!membersPresent.length) {
+    console.log('🌬️ No members wants to be part of the game.');
+    return;
+  }
+
   const membersAvailable = membersPresent.filter((member) => member.status === 'available');
 
   if (!membersAvailable.length) {
