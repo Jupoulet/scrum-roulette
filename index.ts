@@ -10,7 +10,11 @@ const mainScript = async () => {
   const squadMembers = await getSquadMembers();
   console.log('✅ Done !')
   const mappedSquadMembers = getListOfMembersFromDBResponse(squadMembers.results as DBResult);
-  const membersPresent = mappedSquadMembers.filter((member) => member.include === 'yes');
+  const today = new Date()
+  const numberDayOfToday = today.getDay();
+  const membersPresent = mappedSquadMembers.filter((member) => {
+    return member.include === 'yes' && !member.excluded_days.includes(numberDayOfToday)
+  });
 
   if (!membersPresent.length) {
     console.log('🌬️ No members wants to be part of the game.');

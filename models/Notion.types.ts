@@ -31,6 +31,12 @@ export type SelectObject<T> = {
   }
 }
 
+export type MultiSelectObject = {
+  id: string;
+  type: 'multi_select',
+  multi_select: SelectObject<string>['select'][]
+}
+
 export type FormulaObject = {
   type: "formula";
   formula: {
@@ -39,7 +45,7 @@ export type FormulaObject = {
   } 
 }
 
-export type PropertyType = DateObject | FormulaObject | NumberObject | TitleObject | SelectObject<any> | RichTextObject;
+export type PropertyType = DateObject | FormulaObject | NumberObject | TitleObject | SelectObject<any> | RichTextObject | MultiSelectObject;
 
 export type DBResult  = Array<{
   id: string;
