@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {getSquadMembers, patchMember, resetMembers} from "../../../api/notion/NotionAPI";
-import {getListOfMembersFromDBResponse} from "../../../services/scrum-roulette/ScrumRoulette";
+import {DateObjectDTO, getListOfMembersFromDBResponse} from "../../../services/scrum-roulette/ScrumRoulette";
 import {DBResult} from "../../../models/Notion.types";
 import {postSlackMessage} from "../../../api/slack/SlackAPI";
 
@@ -9,17 +9,17 @@ type Data = {
   name: string
 }
 
-const scrumRouletteScript = async () => {
+const scrumRouletteScript = async (): Promise<string> => {
   console.log('⌛ Retrieving squad members...');
   const squadMembers = await getSquadMembers();
-  const mappedSquadMembers = getListOfMembersFromDBResponse(squadMembers.results as DBResult);
+  const mappedSquadMembers = getListOfMembersFromDBResponse(squadMembers?.results as DBResult);
   const today = new Date()
   const numberDayOfToday = today.getDay();
   const membersPresent = mappedSquadMembers.filter((member) => {
-    return member.include === 'yes' && !member.excluded_days.includes(numberDayOfToday)
+    return member.include === 'yes' && !member.excluded_days.includes(numberDayOfToday as 1 | 2 | 3 | 4 | 5)
   });
 
-  if (!membersPresent.length) {
+  if (!membersPresent.length || !squadMembers) {
     console.log('🌬️ No members wants to be part of the game.');
     return '🌬️ No members wants to be part of the game.';
   }
@@ -44,8 +44,8 @@ const scrumRouletteScript = async () => {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<{ message: string }>
 ) {
-  const message = await scrumRouletteScript();
+  const message: string = await scrumRouletteScript();
   res.status(200).json({ message })
 }

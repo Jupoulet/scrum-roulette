@@ -2,12 +2,12 @@ import {DBResult, TitleObject, SelectObject, RichTextObject, MultiSelectObject} 
 
 export type Status = 'available' | 'already-assigned';
 type Include = 'yes' | 'no';
-interface DateObjectDTO {
+export interface DateObjectDTO {
   status: Status;
   include: Include;
   name: string;
   slackId: string;
-  excluded_days: number[];
+  excluded_days: (1 | 2 | 3 | 4 | 5 | undefined)[];
   id: string;
 }
 
