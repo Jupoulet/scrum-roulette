@@ -1,19 +1,29 @@
 {
   "name": "scrum-roulette",
-  "type": "module",
-  "version": "1.0.0",
-  "description": "Chose a scrum master for the day",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "rm -rf dist && tsc && node --es-module-specifier-resolution=node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "author": "julien picard",
-  "license": "ISC",
   "dependencies": {
+    "react": "latest",
+    "react-dom": "latest",
+    "next": "latest",
     "@notionhq/client": "^1.0.4",
-    "@slack/web-api": "^6.8.1",
-    "axios": "^0.27.0",
-    "dotenv": "^16.3.1"
+    "@slack/web-api": "^6.8.1"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/react": "latest",
+    "@types/node": "latest",
+    "@types/react-dom": "latest",
+    "autoprefixer": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest"
   }
 }

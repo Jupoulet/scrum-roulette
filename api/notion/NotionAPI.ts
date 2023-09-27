@@ -1,5 +1,3 @@
-import { config } from 'dotenv';
-config();
 import { Client } from "@notionhq/client"
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 import {Status} from "../../services/scrum-roulette/ScrumRoulette";
