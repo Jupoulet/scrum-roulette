@@ -34,7 +34,7 @@ export const postSlackMessage = async (message: string) => {
               text: 'Reroll'
             },
             action_id: 'button_click',
-            url: 'https://scrum-roulette-9ru5v6fve-jupoulet.vercel.app/api/scrum-roulette'
+            url: 'https://scrum-roulette.vercel.app/api/scrum-roulette'
           }
         }
       ]
