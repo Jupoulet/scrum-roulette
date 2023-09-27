@@ -12,7 +12,32 @@ export const postSlackMessage = async (message: string) => {
     // Send the message to the specified channel
     const result = await client.chat.postMessage({
       channel: channelID,
-      text: message
+      text: message,
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: message
+          }
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: ' Assignee not available ? Click the button to reroll:'
+          },
+          accessory: {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Reroll'
+            },
+            action_id: 'button_click',
+            url: 'https://scrum-roulette-9ru5v6fve-jupoulet.vercel.app/api/scrum-roulette'
+          }
+        }
+      ]
     });
 
     console.log('Slack message sent successfully!');
