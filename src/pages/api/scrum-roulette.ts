@@ -1,13 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {getSquadMembers, patchMember, resetMembers} from "../../../api/notion/NotionAPI";
-import {DateObjectDTO, getListOfMembersFromDBResponse} from "../../../services/scrum-roulette/ScrumRoulette";
+import {getListOfMembersFromDBResponse} from "../../../services/scrum-roulette/ScrumRoulette";
 import {DBResult} from "../../../models/Notion.types";
 import {postSlackMessage} from "../../../api/slack/SlackAPI";
-
-type Data = {
-  name: string
-}
 
 const scrumRouletteScript = async (): Promise<string> => {
   console.log('⌛ Retrieving squad members...');
