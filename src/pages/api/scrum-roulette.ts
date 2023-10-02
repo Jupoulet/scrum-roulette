@@ -46,7 +46,7 @@ const toto = async () => {
 const scrumRouletteScript = async (): Promise<string> => {
 
   return toto();
-  console.log('⌛ Retrieving squad members...');
+/*  console.log('⌛ Retrieving squad members...');
   const squadMembers = await getSquadMembers();
   const mappedSquadMembers = getListOfMembersFromDBResponse(squadMembers?.results as DBResult);
   const today = new Date()
@@ -98,7 +98,7 @@ const scrumRouletteScript = async (): Promise<string> => {
       }
     ]);
   }
-  return `👑 The chosen one for today is: ${pickRandomMember.name}`;
+  return `👑 The chosen one for today is: ${pickRandomMember.name}`;*/
 }
 
 export default async function handler(
