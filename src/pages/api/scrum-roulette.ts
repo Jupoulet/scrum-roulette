@@ -4,8 +4,48 @@ import {getSquadMembers, patchMember, resetMembers} from "../../../api/notion/No
 import {getListOfMembersFromDBResponse} from "../../../services/scrum-roulette/ScrumRoulette";
 import {DBResult} from "../../../models/Notion.types";
 import {postSlackMessage} from "../../../api/slack/SlackAPI";
+import {Headers} from "node-fetch";
+
+const toto = async () => {
+  await fetch('https://hooks.slack.com/services/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', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `👑 *Assigned for today is toto !*`,
+          }
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: ' Assignee not available ? Click the button to reroll:'
+          },
+          accessory: {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Reroll'
+            },
+            action_id: 'reroll-roulette',
+          }
+        }
+      ],
+    }),
+  });
+
+  return 'Oui';
+}
 
 const scrumRouletteScript = async (): Promise<string> => {
+
+  return toto();
   console.log('⌛ Retrieving squad members...');
   const squadMembers = await getSquadMembers();
   const mappedSquadMembers = getListOfMembersFromDBResponse(squadMembers?.results as DBResult);
