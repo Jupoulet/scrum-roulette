@@ -7,7 +7,7 @@ import {postSlackMessage} from "../../../api/slack/SlackAPI";
 import {Headers} from "node-fetch";
 
 const toto = async () => {
-  const result = await fetch('https://hooks.slack.com/services/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', {
+  const result = await fetch('https://hooks.slack.com/services/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', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
