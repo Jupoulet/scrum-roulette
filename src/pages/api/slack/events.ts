@@ -10,7 +10,7 @@ export default async function handler(
     return res.status(404).json({ message: 'Not found' });
   }
   const result = req.body;
-  console.log('PAYLOAD', result);
+  console.log('PAYLOAD', result.payload);
   await postSlackMessage(`Hello moi`)
   res.status(200).json({ message: 'Ok' });
 }
