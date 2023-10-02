@@ -33,7 +33,30 @@ const scrumRouletteScript = async (): Promise<string> => {
   console.log(`👑 The chosen one for today is: ${pickRandomMember.name}`);
   await patchMember(squadMembers.results.find((member) => member.id === pickRandomMember.id), 'already-assigned');
   if (pickRandomMember) {
-    await postSlackMessage(`👑 *Assigned for today is <@${pickRandomMember.slackId}> !*`);
+    await postSlackMessage(`👑 *Assigned for today is <@${pickRandomMember.slackId}> !*`, [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `👑 *Assigned for today is <@${pickRandomMember.slackId}> !*`,
+        }
+      },
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: ' Assignee not available ? Click the button to reroll:'
+        },
+        accessory: {
+          type: 'button',
+          text: {
+            type: 'plain_text',
+            text: 'Reroll'
+          },
+          action_id: 'reroll-roulette',
+        }
+      }
+    ]);
   }
   return `👑 The chosen one for today is: ${pickRandomMember.name}`;
 }
