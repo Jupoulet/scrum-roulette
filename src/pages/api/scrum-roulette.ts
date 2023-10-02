@@ -7,7 +7,7 @@ import {postSlackMessage} from "../../../api/slack/SlackAPI";
 import {Headers} from "node-fetch";
 
 const toto = async () => {
-  const result = await fetch(process.env.SLACK_WEBHOOK_URL, {
+  const result = await fetch(process.env.SLACK_WEBHOOK_URL || '', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
