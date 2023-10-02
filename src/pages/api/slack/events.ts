@@ -14,6 +14,7 @@ export default async function handler(
   }
   const result = req.body;
   console.log('PAYLOAD', result.payload);
+  res.status(200).json({ message: 'Cool' })
 /*  const firstActionId = result.payload.actions.find((action: { action_id: string }) => !!action.action_id);
 
   switch (firstActionId) {
