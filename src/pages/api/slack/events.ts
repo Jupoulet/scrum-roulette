@@ -14,12 +14,12 @@ export default async function handler(
   }
   const result = req.body;
   console.log('TYPEOF PAYLOAD', result.payload);
-  const firstActionId = result.payload.actions.find((action: { action_id: string }) => !!action.action_id)?.action_id;
+/*  const firstActionId = result.payload.actions.find((action: { action_id: string }) => !!action.action_id)?.action_id;
 
   switch (firstActionId) {
     case 'reroll-roulette':
       return reroll(result.payload.user.id);
     default:
       res.status(404).json({ message: `Unhandled action: ${firstActionId}` })
-  }
+  }*/
 }
