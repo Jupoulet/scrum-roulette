@@ -7,10 +7,10 @@ import {postSlackMessage} from "../../../api/slack/SlackAPI";
 import {Headers} from "node-fetch";
 
 const toto = async () => {
-  await fetch('https://hooks.slack.com/services/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', {
+  const result = await fetch('https://hooks.slack.com/services/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', {
     method: 'POST',
     headers: {
-      'Content-type': 'application/json'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       blocks: [
@@ -39,6 +39,8 @@ const toto = async () => {
       ],
     }),
   });
+
+  console.log('result', result);
 
   return 'Oui';
 }
