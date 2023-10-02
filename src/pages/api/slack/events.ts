@@ -14,7 +14,7 @@ export default async function handler(
   }
   const result = req.body;
   console.log('PAYLOAD', result.payload);
-  const firstActionId = result.payload.find((action: { action_id: string }) => !!action.action_id);
+  const firstActionId = result.payload.actions.find((action: { action_id: string }) => !!action.action_id);
 
   switch (firstActionId) {
     case 'reroll-roulette':
