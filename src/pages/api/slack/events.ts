@@ -14,6 +14,7 @@ export default async function handler(
   }
   const result = req.body;
   console.log('TYPEOF PAYLOAD', typeof result.payload);
+  console.log('parsed', JSON.parse(result.payload));
 /*  const firstActionId = result.payload.actions.find((action: { action_id: string }) => !!action.action_id)?.action_id;
 
   switch (firstActionId) {
