@@ -3,52 +3,11 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import {getSquadMembers, patchMember, resetMembers} from "../../../api/notion/NotionAPI";
 import {getListOfMembersFromDBResponse} from "../../../services/scrum-roulette/ScrumRoulette";
 import {DBResult} from "../../../models/Notion.types";
-import {postSlackMessage} from "../../../api/slack/SlackAPI";
-import {Headers} from "node-fetch";
+import {postSlackMessageWebhook} from "../../../api/slack/SlackAPI";
 
-const toto = async () => {
-  const result = await fetch(process.env.SLACK_WEBHOOK_URL || '', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      blocks: [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: `👑 *Assigned for today is toto !*`,
-          }
-        },
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: ' Assignee not available ? Click the button to reroll:'
-          },
-          accessory: {
-            type: 'button',
-            text: {
-              type: 'plain_text',
-              text: 'Reroll'
-            },
-            action_id: 'reroll-roulette',
-          }
-        }
-      ],
-    }),
-  });
+export const scrumRouletteScript = async (author?: string): Promise<string> => {
 
-  console.log('result', result);
-
-  return 'Oui';
-}
-
-const scrumRouletteScript = async (): Promise<string> => {
-
-  return toto();
-/*  console.log('⌛ Retrieving squad members...');
+  console.log('⌛ Retrieving squad members...');
   const squadMembers = await getSquadMembers();
   const mappedSquadMembers = getListOfMembersFromDBResponse(squadMembers?.results as DBResult);
   const today = new Date()
@@ -75,7 +34,14 @@ const scrumRouletteScript = async (): Promise<string> => {
   console.log(`👑 The chosen one for today is: ${pickRandomMember.name}`);
   await patchMember(squadMembers.results.find((member) => member.id === pickRandomMember.id), 'already-assigned');
   if (pickRandomMember) {
-    await postSlackMessage(`👑 *Assigned for today is <@${pickRandomMember.slackId}> !*`, [
+    await postSlackMessageWebhook([
+      author ? {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `🎲 *Asked for a reroll <@${author}>*`,
+        }
+      } : undefined,
       {
         type: 'section',
         text: {
@@ -87,7 +53,7 @@ const scrumRouletteScript = async (): Promise<string> => {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: ' Assignee not available ? Click the button to reroll:'
+          text: 'Assignee not available ? Click the button to reroll:'
         },
         accessory: {
           type: 'button',
@@ -98,9 +64,9 @@ const scrumRouletteScript = async (): Promise<string> => {
           action_id: 'reroll-roulette',
         }
       }
-    ]);
+    ].filter(Boolean));
   }
-  return `👑 The chosen one for today is: ${pickRandomMember.name}`;*/
+  return `👑 The chosen one for today is: ${pickRandomMember.name}`;
 }
 
 export default async function handler(

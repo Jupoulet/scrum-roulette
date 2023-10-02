@@ -1,16 +1,25 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {postSlackMessage} from "../../../../api/slack/SlackAPI";
+import {scrumRouletteScript} from "@/pages/api/scrum-roulette";
+
+const reroll = (author: string) => {
+  return scrumRouletteScript(author);
+}
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ message: string }>
 ) {
-  console.log('BONSOIR');
   if (req.method !== 'POST') {
     return res.status(404).json({ message: 'Not found' });
   }
   const result = req.body;
   console.log('PAYLOAD', result.payload);
-  await postSlackMessage(`Hello moi`)
-  res.status(200).json({ message: 'Ok' });
+  const firstActionId = result.payload.find((action: { action_id: string }) => !!action.action_id);
+
+  switch (firstActionId) {
+    case 'reroll-roulette':
+      return reroll(result.payload.user.id);
+    default:
+      res.status(404).json({ message: `Unhandled action: ${firstActionId}` })
+  }
 }
