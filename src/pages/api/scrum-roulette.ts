@@ -34,37 +34,41 @@ export const scrumRouletteScript = async (author?: string): Promise<string> => {
   console.log(`👑 The chosen one for today is: ${pickRandomMember.name}`);
   await patchMember(squadMembers.results.find((member) => member.id === pickRandomMember.id), 'already-assigned');
   if (pickRandomMember) {
-    await postSlackMessageWebhook([
-      author ? {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `🎲 <@${author}> Asked for a reroll`,
-        }
-      } : undefined,
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `👑 *Assigned for today is <@${pickRandomMember.slackId}> !*`,
-        }
-      },
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: 'Assignee not available ? Click the button to reroll:'
-        },
-        accessory: {
-          type: 'button',
+    try {
+      await postSlackMessageWebhook([
+        author ? {
+          type: 'section',
           text: {
-            type: 'plain_text',
-            text: 'Reroll'
+            type: 'mrkdwn',
+            text: `🎲 <@${author}> Asked for a reroll`,
+          }
+        } : undefined,
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `👑 *Assigned for today is <@${pickRandomMember.slackId}> !*`,
+          }
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: 'Assignee not available ? Click the button to reroll:'
           },
-          action_id: 'reroll-roulette',
+          accessory: {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Reroll'
+            },
+            action_id: 'reroll-roulette',
+          }
         }
-      }
-    ].filter(Boolean));
+      ].filter(Boolean));
+    } catch (e) {
+      console.error(e);
+    }
   }
   return `👑 The chosen one for today is: ${pickRandomMember.name}`;
 }
