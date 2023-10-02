@@ -13,7 +13,7 @@ export default async function handler(
     return res.status(404).json({ message: 'Not found' });
   }
   const result = req.body;
-  console.log('PAYLOAD', result.payload);
+  console.log('PAYLOAD', result.payload.actions);
   res.status(200).json({ message: 'Cool' })
 /*  const firstActionId = result.payload.actions.find((action: { action_id: string }) => !!action.action_id);
 
