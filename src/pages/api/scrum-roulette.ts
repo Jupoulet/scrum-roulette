@@ -39,7 +39,7 @@ export const scrumRouletteScript = async (author?: string): Promise<string> => {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `🎲 *Asked for a reroll <@${author}>*`,
+          text: `🎲 <@${author}> Asked for a reroll`,
         }
       } : undefined,
       {
