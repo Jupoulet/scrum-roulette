@@ -22,7 +22,19 @@ export const postSlackMessage = async (message: string, blocks?: any[]) => {
   }
 };
 
-export const postSlackMessageWebhook = async (blocks: any[]) => {
+export const postSlackMessageToFrontSecret = async (blocks: any[]) => {
+  const result = await fetch(process.env.SLACK_WEBHOOK_URL_FRONT_SECRET || '', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      blocks
+    }),
+  });
+}
+
+export const postSlackMessageToTakeoff = async (blocks: any[]) => {
   const result = await fetch(process.env.SLACK_WEBHOOK_URL || '', {
     method: 'POST',
     headers: {

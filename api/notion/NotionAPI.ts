@@ -4,13 +4,26 @@ import {Status} from "../../services/scrum-roulette/ScrumRoulette";
 
 const notion = new Client({ auth: process.env.NOTION_KEY });
 
-const databaseId = process.env.NOTION_DATABASE_ID;
-
-export const getSquadMembers = async (): Promise<QueryDatabaseResponse | undefined> => {
-  if (!databaseId || !process.env.NOTION_KEY) return;
+export const getDepsOwnerMembers = async (): Promise<QueryDatabaseResponse | undefined> => {
+  const database_id = process.env.NOTION_DEPS_OWNER_DB_ID;
+  if (!database_id || !process.env.NOTION_KEY) return;
   try {
     const response = await notion.databases.query({
-      database_id: databaseId,
+      database_id,
+    });
+    return response
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export const getSquadMembers = async (): Promise<QueryDatabaseResponse | undefined> => {
+  const database_id = process.env.NOTION_DATABASE_ID;
+
+  if (!database_id || !process.env.NOTION_KEY) return;
+  try {
+    const response = await notion.databases.query({
+      database_id,
     });
     return response
   } catch (e) {

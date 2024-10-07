@@ -1,8 +1,14 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {scrumRouletteScript} from "@/pages/api/scrum-roulette";
+import {depsOwnerRouletteScript} from "@/pages/api/deps_owner_roulette";
 
 const reroll = (author: string) => {
   return scrumRouletteScript(author);
+}
+
+const rerollDepsOwnerRoulette = (author: string) => {
+  console.log('👑 Rerolling Deps owner roulette');
+  return depsOwnerRouletteScript(author);
 }
 
 export default async function handler(
@@ -19,6 +25,8 @@ export default async function handler(
   switch (firstActionId) {
     case 'reroll-roulette':
       return reroll(payload.user.id);
+    case 'reroll-deps-owner-roulette':
+      return rerollDepsOwnerRoulette(payload.user.id);
     default:
       res.status(404).json({ message: `Unhandled action: ${firstActionId}` })
   }
