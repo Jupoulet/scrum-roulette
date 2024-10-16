@@ -1,9 +1,28 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {getSquadMembers, patchMember, resetMembers} from "../../../api/notion/NotionAPI";
-import {getListOfMembersFromDBResponse} from "../../../services/scrum-roulette/ScrumRoulette";
+import {DateObjectDTO, getListOfMembersFromDBResponse} from "../../../services/scrum-roulette/ScrumRoulette";
 import {DBResult} from "../../../models/Notion.types";
 import {postSlackMessageToTakeoff} from "../../../api/slack/SlackAPI";
+
+const getCustomMessage = (member: DateObjectDTO) => {
+  switch(member.name) {
+    case 'JuP':
+      return '_"Le meilleur d\'entre nous 🥇"_';
+    case 'Mathieu':
+      return '_"Brice d\'Avignon 🤙"_';
+    case 'Anne-Emilie':
+      return '_"Le puis de savoir 🐘"_';
+    case 'Hugo':
+      return '_"Celui qui scale 📈"_';
+    case 'Jeremy':
+      return  '_"Le doctorant du sommeil 👨🏻‍⚕️"_';
+    case 'Thibault':
+      return '_"... et les 40 funnels 🥷🏻"_';
+    case 'Lisa':
+      return '_"Spider woman 🧗🏻‍♂️"_'
+  }
+}
 
 export const scrumRouletteScript = async (author?: string): Promise<string> => {
 
@@ -33,6 +52,7 @@ export const scrumRouletteScript = async (author?: string): Promise<string> => {
   const pickRandomMember = membersAvailable[Math.floor(Math.random() * membersAvailable.length)];
   console.log(`👑 The chosen one for today is: ${pickRandomMember.name}`);
   await patchMember(squadMembers.results.find((member) => member.id === pickRandomMember.id), 'already-assigned');
+  const customMessage = getCustomMessage(pickRandomMember);
   if (pickRandomMember) {
     try {
       await postSlackMessageToTakeoff([
@@ -50,6 +70,13 @@ export const scrumRouletteScript = async (author?: string): Promise<string> => {
             text: `👑 *Assigned for today is <@${pickRandomMember.slackId}> !*`,
           }
         },
+        customMessage ? {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: customMessage,
+          }
+        } : undefined,
         {
           type: 'section',
           text: {
