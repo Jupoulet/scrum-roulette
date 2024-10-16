@@ -75,8 +75,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ message: string }>
 ) {
-
   const message = await depsOwnerRouletteScript(req.body.author);
-  
   res.status(200).json({ message });
 };
