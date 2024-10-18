@@ -12,7 +12,7 @@ const getCustomMessage = (member: DateObjectDTO) => {
     case 'Mathieu':
       return '_"Brice d\'Avignon 🤙"_';
     case 'Anne-Emilie':
-      return '_"Le puis de savoir 🐘"_';
+      return '_"Le puits de savoir 🐘"_';
     case 'Hugo':
       return '_"Celui qui scale 📈"_';
     case 'Jeremy':
