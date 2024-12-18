@@ -8,7 +8,7 @@ import {postSlackMessageToTakeoff} from "../../../api/slack/SlackAPI";
 const getCustomMessage = (member: DateObjectDTO) => {
   switch(member.name) {
     case 'JuP':
-      return '_"Le meilleur d\'entre nous 🥇"_';
+      return '_"Le pire d\'entre nous 🥇"_';
     case 'Mathieu':
       return '_"Brice d\'Avignon 🤙"_';
     case 'Anne-Emilie':
@@ -20,7 +20,9 @@ const getCustomMessage = (member: DateObjectDTO) => {
     case 'Thibault':
       return '_"... et les 40 funnels 🥷🏻"_';
     case 'Lisa':
-      return '_"Spider woman 🧗🏻‍♂️"_'
+      return '_"Spider woman 🧗🏻‍♂️"_';
+    case 'Haitam':
+      return '_"Celui qui joue tout seul 💣"_'
   }
 }
 
