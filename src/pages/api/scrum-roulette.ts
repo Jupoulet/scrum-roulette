@@ -20,7 +20,7 @@ const getCustomMessage = (member: DateObjectDTO) => {
     case 'Thibault':
       return '_"... et les 40 funnels 🥷🏻"_';
     case 'Lisa':
-      return '_"Spider woman 🧗🏻‍♂️"_';
+      return '_"Amatrice de lardon cru 🥓"_';
     case 'Haitam':
       return '_"Celui qui joue tout seul 💣"_'
   }
