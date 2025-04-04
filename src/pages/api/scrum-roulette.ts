@@ -8,7 +8,7 @@ import {postSlackMessageToTakeoff} from "../../../api/slack/SlackAPI";
 const getCustomMessage = (member: DateObjectDTO) => {
   switch(member.name) {
     case 'JuP':
-      return '_"Le pire d\'entre nous 🥇"_';
+      return '_"Assigné jusqu\'au 9 mai + 40 dailys 😥"_';
     case 'Mathieu':
       return '_"Brice d\'Avignon 🤙"_';
     case 'Anne-Emilie':
