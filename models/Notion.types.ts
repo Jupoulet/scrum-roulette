@@ -18,7 +18,9 @@ export type NumberObject = {
 
 export type DateObject = {
   type: "date";
-  date: string | null;
+  date: {
+    start: string
+  } | null;
   id: string;
 }
 
