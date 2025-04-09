@@ -11,6 +11,7 @@ const getAssignedUntilmessage = (date: string | undefined) => {
   const future = new Date(date);
 
   // Calculate the difference in milliseconds
+  // @ts-ignore
   const diffInMs = future - today;
 
   // Convert milliseconds to days
