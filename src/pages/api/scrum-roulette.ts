@@ -5,27 +5,10 @@ import {DateObjectDTO, getListOfMembersFromDBResponse} from "../../../services/s
 import {DBResult} from "../../../models/Notion.types";
 import {postSlackMessageToTakeoff} from "../../../api/slack/SlackAPI";
 
-const getAssignedUntilmessage = (date: string | undefined) => {
-  if (!date) return;
-  const today = new Date();
-  const future = new Date(date);
-
-  // Calculate the difference in milliseconds
-  // @ts-ignore
-  const diffInMs = future - today;
-
-  // Convert milliseconds to days
-  const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-
-  return `Assigned for another ${diffInDays} days`;
-}
-
 const getCustomMessage = (member: DateObjectDTO) => {
-  const assignedUntilMessage =  getAssignedUntilmessage(member.assigned_until)
-  if (assignedUntilMessage) return member.name === 'JuP' ? `${assignedUntilMessage} + 40 dailys 😥` : assignedUntilMessage;
   switch(member.name) {
     case 'JuP':
-      return '_"Assigné jusqu\'au 9 mai + 40 dailys 😥"_';
+      return '_"Le pire d\'entre nous 🤡"_';
     case 'Mathieu':
       return '_"Brice d\'Avignon 🤙"_';
     case 'Anne-Emilie':
